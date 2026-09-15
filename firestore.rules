@@ -1,0 +1,52 @@
+rules_version = '2';
+
+// Paste this into Firebase Console → Firestore Database → Rules → Publish.
+//
+// What it enforces:
+//   - Anyone can read the nomination roll (so every visitor sees live seats).
+//   - A write may only add exactly ONE nomination at a time (no bulk edits,
+//     no overwriting or removing someone else's entry).
+//   - Each office array can never exceed 3 entries, even under a race
+//     between two people submitting at the same instant.
+//   - The document can only ever hold the three expected fields.
+//
+// What it does NOT enforce (by design, to keep this simple):
+//   - That the submitted name/register number actually belongs to the
+//     roster in students.js — that check happens in app.js. Someone could
+//     bypass the page and write arbitrary data via the API. For a link
+//     shared only within your class group this is normally an acceptable
+//     tradeoff; see README.md if you want to lock this down further.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /election/{docId} {
+      allow read: if true;
+      allow delete: if false;
+
+      allow create: if isValidShape(request.resource.data)
+                    && isSingleNomination(request.resource.data);
+
+      allow update: if isValidShape(request.resource.data)
+                    && addedExactlyOne(resource.data, request.resource.data);
+    }
+  }
+
+  function isValidShape(data) {
+    return data.keys().hasOnly(['vicePresident', 'viceSecretary', 'viceTreasurer'])
+      && data.vicePresident is list && data.vicePresident.size() <= 3
+      && data.viceSecretary is list && data.viceSecretary.size() <= 3
+      && data.viceTreasurer is list && data.viceTreasurer.size() <= 3;
+  }
+
+  function isSingleNomination(data) {
+    return data.vicePresident.size()
+        + data.viceSecretary.size()
+        + data.viceTreasurer.size() == 1;
+  }
+
+  function addedExactlyOne(before, after) {
+    let beforeTotal = before.vicePresident.size() + before.viceSecretary.size() + before.viceTreasurer.size();
+    let afterTotal = after.vicePresident.size() + after.viceSecretary.size() + after.viceTreasurer.size();
+    return afterTotal == beforeTotal + 1;
+  }
+}
