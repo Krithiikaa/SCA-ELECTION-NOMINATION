@@ -19,7 +19,7 @@ You may contest for **one** of these. Three seats each, first filed, first serve
 
 ## How to file
 
-1. Open the nomination page — **[link goes here]**
+1. Open the nomination page — **https://krithiikaa.github.io/SCA-ELECTION-NOMINATION/**
 2. Decide which office you want to contest.
 3. Under that office, click the search box and start typing your **name or register number**.
 4. Select yourself from the list that appears.
