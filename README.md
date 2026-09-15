@@ -39,7 +39,7 @@ You may contest for **one** of these. Three seats each, first filed, first serve
 
 ## Deadline
 
-Nominations close **[date & time]**. Seats filled after that won't be counted.
+Nominations close **[16.09.2026 - 12:00PM]**. Seats filled after that won't be counted.
 
 ## Questions or issues
 
