@@ -56,7 +56,7 @@ export const STUDENTS = [
   { name: "S.D.Rohith", reg: "513424104705" },
   { name: "S.Devatharshini", reg: "513423104034" },
   { name: "S.Madhan", reg: "513424104013" },
-  { name: "Sanjayraj.M", reg: "513424104701" },
+  { name: "Sanjayraj.M", reg: "513424104707" },
   { name: "Shakthipriya.M", reg: "513424104011" },
   { name: "Surendra Kumar A", reg: "513424104305" },
   { name: "U. Mugilvani", reg: "513424104047" },
